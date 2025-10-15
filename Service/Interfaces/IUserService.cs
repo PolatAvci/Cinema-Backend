@@ -10,5 +10,7 @@ namespace CinemaProject.Services.Interfaces
         Task<ResponseUser> CreateUserAsync(CreateUserModel user);
         Task<ResponseUser?> UpdateUserAsync(int id, UpdateUserModel user);
         Task<bool> DeleteUserAsync(int id);
+
+        // TODO: Authenticate ekle
     }
 }

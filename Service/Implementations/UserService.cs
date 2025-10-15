@@ -25,19 +25,37 @@ namespace CinemaProject.Services.Implementations
             return responseUser;
         }
 
-        public Task<bool> DeleteUserAsync(int id)
+        public async Task<bool> DeleteUserAsync(int id)
         {
-            throw new NotImplementedException();
+            var user = await _userRepository.GetByIdAsync(id);
+
+            if (user == null)
+            {
+                return false;
+            }
+
+            _userRepository.Delete(user);
+
+            await _userRepository.SaveChangesAsync();
+
+            return true;
+            
         }
 
-        public Task<IEnumerable<ResponseUser>> GetAllUsersAsync()
+        public async Task<IEnumerable<ResponseUser>> GetAllUsersAsync()
         {
-            throw new NotImplementedException();
+            var users = await _userRepository.GetAllAsync();
+
+            var responseUsers = _mapper.Map<IEnumerable<ResponseUser>>(users);
+
+            return responseUsers;
         }
 
-        public Task<ResponseUser?> GetUserByEmailAsync(string email)
+        public async Task<ResponseUser?> GetUserByEmailAsync(string email)
         {
-            throw new NotImplementedException();
+            var user = await _userRepository.GetByEmailAsync(email);
+            var responseUser = _mapper.Map<ResponseUser>(user);
+            return responseUser;
         }
 
         public async Task<ResponseUser?> GetUserByIdAsync(int id)
@@ -48,9 +66,23 @@ namespace CinemaProject.Services.Implementations
 
         }
 
-        public Task<ResponseUser?> UpdateUserAsync(int id, UpdateUserModel user)
+        public async Task<ResponseUser?> UpdateUserAsync(int id, UpdateUserModel user)
         {
-            throw new NotImplementedException();
+            var oldUser = await _userRepository.GetByIdAsync(id);
+
+            if (oldUser == null) return null;
+
+            oldUser.Name = user.Name;
+            oldUser.Email = user.Email;
+            oldUser.BirthDate = user.BirthDate;
+
+            _userRepository.Update(oldUser);
+
+            await _userRepository.SaveChangesAsync();
+
+            var responseUser = _mapper.Map<ResponseUser>(oldUser);
+
+            return responseUser;
         }
     }
 }
