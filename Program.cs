@@ -5,7 +5,6 @@ using CinemaProject.Repositories.Interfaces;
 using CinemaProject.Services.Implementations;
 using CinemaProject.Services.Interfaces;
 using Microsoft.EntityFrameworkCore;
-using Swashbuckle.AspNetCore.SwaggerUI;
 
 var builder = WebApplication.CreateBuilder(args);
 
