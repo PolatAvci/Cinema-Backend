@@ -38,9 +38,9 @@ namespace CinemaProject.Repositories.Implementations
             await _context.Users.AddAsync(user);
         }
 
-        public async void Update(User user)
+        public void Update(User user)
         {
-             _context.Users.Update(user);
+            _context.Users.Update(user);
         }
 
         public void Delete(User user)

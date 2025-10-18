@@ -23,9 +23,14 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 
-builder.Services.AddAutoMapper(typeof(UserProfile)); // User Mapping için
+// builder.Services.AddAutoMapper(typeof(UserProfile)); // User Mapping için
+builder.Services.AddAutoMapper(typeof(Program)); // Tüm AutoMapperLarı yükler
+
 builder.Services.AddScoped<IUserRepository, UserRepository>(); // Repository katmanı
 builder.Services.AddScoped<IUserService, UserService>(); // Service katmanı
+
+builder.Services.AddScoped<IShowTimeRepository, ShowTimeRepository>();
+builder.Services.AddScoped<IShowTimeService, ShowTimeService>();
 
 var app = builder.Build();
 

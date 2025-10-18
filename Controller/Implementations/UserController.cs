@@ -1,11 +1,12 @@
+using CinemaProject.Controller.Interfaces;
 using CinemaProject.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
-namespace CinemaProject.Controller
+namespace CinemaProject.Controller.Implementations
 {
     [ApiController]
     [Route("api/users")]
-    public class UserController : ControllerBase
+    public class UserController : ControllerBase, IUserController
     {
         private readonly IUserService _userService;
         public UserController(IUserService userService)
