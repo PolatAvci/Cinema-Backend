@@ -20,6 +20,8 @@ namespace CinemaProject.Mapping
             CreateMap<ShowTime, ResponseShowTime>()
                 .ForMember(dest => dest.Movie, opt => opt.MapFrom(src => src.Movie))
                 .ForMember(dest => dest.Theater, opt => opt.MapFrom(src => src.Theater));
+
+            CreateMap<ShowTime, ResponseShowTimeSummary>();
         }
     }
 }

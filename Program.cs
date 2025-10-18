@@ -2,6 +2,10 @@ using CinemaProject.Data;
 using CinemaProject.Mapping;
 using CinemaProject.Repositories.Implementations;
 using CinemaProject.Repositories.Interfaces;
+using CinemaProject.Repository.Implementations;
+using CinemaProject.Repository.Interfaces;
+using CinemaProject.Service.Implementations;
+using CinemaProject.Service.Interfaces;
 using CinemaProject.Services.Implementations;
 using CinemaProject.Services.Interfaces;
 using Microsoft.EntityFrameworkCore;
@@ -31,6 +35,9 @@ builder.Services.AddScoped<IUserService, UserService>(); // Service katmanı
 
 builder.Services.AddScoped<IShowTimeRepository, ShowTimeRepository>();
 builder.Services.AddScoped<IShowTimeService, ShowTimeService>();
+
+builder.Services.AddScoped<ITicketRepository, TicketRepository>();
+builder.Services.AddScoped<ITicketService, TicketService>();
 
 var app = builder.Build();
 

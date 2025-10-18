@@ -7,7 +7,6 @@ namespace CinemaProject.Repositories.Interfaces
         Task<IEnumerable<ShowTime>> GetAllAsync();
         Task<ShowTime?> GetByIdAsync(int id);
         Task AddAsync(ShowTime showTime);
-        void Update(ShowTime showTime);
         void Delete(ShowTime showTime);
         Task SaveChangesAsync();
     }

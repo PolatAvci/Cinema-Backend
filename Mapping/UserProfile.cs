@@ -13,6 +13,8 @@ namespace CinemaProject.Mapping
                 .ForMember(dest => dest.Id, opt => opt.Ignore()); // Id DB tarafından atanacak
 
             CreateMap<User, ResponseUser>();
+
+            CreateMap<User, ResponseUserSummary>();
         }
     }
 }

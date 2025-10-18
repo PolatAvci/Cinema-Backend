@@ -47,10 +47,5 @@ namespace CinemaProject.Repositories.Implementations
         {
             await _context.SaveChangesAsync();
         }
-
-        public void Update(ShowTime showTime)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

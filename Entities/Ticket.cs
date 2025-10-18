@@ -9,7 +9,7 @@ namespace CinemaProject.Entities
         
         public required decimal Price { get; set; }
 
-        public required DateTime PurchaseDate { get; set; }
+        public DateTime? PurchaseDate { get; set; }
 
         public bool IsBooked { get; set; } = false;
 
