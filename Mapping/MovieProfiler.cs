@@ -7,7 +7,7 @@ namespace CinemaProject.Mapping
     {
         public MovieProfile()
         {
-           CreateMap<Movie, ResponseMovie>();
+           CreateMap<Movie, ResponseMovieSummary>();
         }
     }
 }

@@ -1,4 +1,4 @@
-public class ResponseTheater
+public class ResponseTheaterSummary
 {
         public required int Id { get; set; }
         

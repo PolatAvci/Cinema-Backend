@@ -1,4 +1,4 @@
-public class ResponseMovie
+public class ResponseMovieSummary
 {
 public required int Id { get; set; }
         

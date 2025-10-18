@@ -11,7 +11,7 @@ public class ResponseShowTime
 
     public decimal StudentPrice { get; set; }
 
-    public ResponseMovie Movie { get; set; } = null!;
+    public ResponseMovieSummary Movie { get; set; } = null!;
 
-    public ResponseTheater Theater { get; set; } = null!;
+    public ResponseTheaterSummary Theater { get; set; } = null!;
 }

@@ -7,7 +7,7 @@ namespace CinemaProject.Mapping
     {
         public TheaterProfile()
         {
-           CreateMap<Theater, ResponseTheater>();
+           CreateMap<Theater, ResponseTheaterSummary>();
         }
     }
 }
