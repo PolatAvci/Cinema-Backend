@@ -1,3 +1,4 @@
+using System.Threading.Tasks;
 using CinemaProject.Data;
 using CinemaProject.Entities;
 using CinemaProject.Repositories.Interfaces;
@@ -21,12 +22,16 @@ namespace CinemaProject.Repositories.Implementations
 
         public void Delete(ShowTime showTime)
         {
-            throw new NotImplementedException();
+             _context.Remove(showTime);
         }
 
         public Task<IEnumerable<ShowTime>> GetAllAsync()
         {
-            throw new NotImplementedException();
+            var showTimes = _context.ShowTimes
+                                .Include(s => s.Movie)
+                                .Include(s => s.Theater)
+                                .AsEnumerable();
+            return Task.FromResult(showTimes);
         }
 
         public async Task<ShowTime?> GetByIdAsync(int id)

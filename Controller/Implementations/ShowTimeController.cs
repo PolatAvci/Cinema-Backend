@@ -23,27 +23,35 @@ namespace CinemaProject.Controller.Implementations
         }
 
         [HttpDelete]
-        public Task<IActionResult> DeleteShowTime(int id)
+        public async Task<IActionResult> DeleteShowTime(int id)
         {
-            throw new NotImplementedException();
+            var deleted = await _showTimeService.DeleteShowTimeAsync(id);
+            if (!deleted)
+            {
+                return NotFound();
+            }
+            return NoContent();
         }
 
         [HttpGet]
-        public Task<IEnumerable<ResponseUser>> GetAllShowTime()
+        public async Task<IEnumerable<ResponseShowTime>> GetAllShowTime()
         {
-            throw new NotImplementedException();
+            var showTimes = await _showTimeService.GetAllShowTimeAsync();
+            return showTimes;
         }
 
         [HttpGet("{id}")]
-        public Task<ResponseUser?> GetShowTimeById(int id)
+        public async Task<ResponseShowTime?> GetShowTimeById(int id)
         {
-            throw new NotImplementedException();
+            var showTime = await _showTimeService.GetShowTimeByIdAsync(id);
+            return showTime;
         }
 
         [HttpPut("{id}")]
-        public Task<ResponseUser?> UpdateShowTime(int id, [FromBody] UpdateShowTimeModel showTimeModel)
+        public async Task<ResponseShowTime?> UpdateShowTime(int id, [FromBody] UpdateShowTimeModel showTimeModel)
         {
-            throw new NotImplementedException();
+            var updatedShowTime = await _showTimeService.UpdateShowTimeAsync(id, showTimeModel);
+            return updatedShowTime;
         }
     }
 }

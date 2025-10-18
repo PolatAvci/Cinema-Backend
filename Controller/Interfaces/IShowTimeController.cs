@@ -6,12 +6,12 @@ namespace CinemaProject.Controller.Interfaces
     {
         public Task<ResponseShowTime?> CreateShowTime(CreateShowTimeModel showTimeModel);
 
-        public Task<IEnumerable<ResponseUser>> GetAllShowTime();
+        public Task<IEnumerable<ResponseShowTime>> GetAllShowTime();
 
-        public Task<ResponseUser?> GetShowTimeById(int id);
+        public Task<ResponseShowTime?> GetShowTimeById(int id);
 
         public Task<IActionResult> DeleteShowTime(int id);
 
-        public Task<ResponseUser?> UpdateShowTime(int id, UpdateShowTimeModel showTimeModel);
+        public Task<ResponseShowTime?> UpdateShowTime(int id, UpdateShowTimeModel showTimeModel);
     }
 }

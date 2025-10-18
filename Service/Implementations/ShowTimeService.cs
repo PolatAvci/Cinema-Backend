@@ -30,24 +30,44 @@ namespace CinemaProject.Services.Implementations
             return responseShowTime;
         }
 
-        public Task<bool> DeleteShowTimeAsync(int id)
+        public async Task<bool> DeleteShowTimeAsync(int id)
         {
-            throw new NotImplementedException();
+            var showTime =  await _showTimeRepository.GetByIdAsync(id);
+            if (showTime == null) return false;
+
+            _showTimeRepository.Delete(showTime);
+            await _showTimeRepository.SaveChangesAsync();
+            return true;
         }
 
-        public Task<IEnumerable<ResponseShowTime>> GetAllShowTimeAsync()
+        public async Task<IEnumerable<ResponseShowTime>> GetAllShowTimeAsync()
         {
-            throw new NotImplementedException();
+            var showTimes = await _showTimeRepository.GetAllAsync();
+            var responseShowTimes = _mapper.Map<IEnumerable<ResponseShowTime>>(showTimes);
+
+            return responseShowTimes;
         }
 
-        public Task<ResponseShowTime?> GetShowTimeByIdAsync(int id)
+        public async Task<ResponseShowTime?> GetShowTimeByIdAsync(int id)
         {
-            throw new NotImplementedException();
+            var showTime = await _showTimeRepository.GetByIdAsync(id);
+            if (showTime == null) return null;
+
+            var responseShowTime = _mapper.Map<ResponseShowTime>(showTime);
+            return responseShowTime;
         }
 
-        public Task<ResponseShowTime?> UpdateShowTimeAsync(int id, UpdateShowTimeModel user)
+        public async Task<ResponseShowTime?> UpdateShowTimeAsync(int id, UpdateShowTimeModel showTime)
         {
-            throw new NotImplementedException();
+            var oldShowTime =  await _showTimeRepository.GetByIdAsync(id);
+            if (oldShowTime == null) return null;
+
+            // Sadece gerekli alanlar güncellenir, navigationlar korunur
+            _mapper.Map(showTime, oldShowTime);
+            await _showTimeRepository.SaveChangesAsync();
+
+            var responseShowTime = _mapper.Map<ResponseShowTime>(oldShowTime);
+            return responseShowTime;
         }
 
     }
