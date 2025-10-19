@@ -1,4 +1,5 @@
 using CinemaProject.Data;
+using CinemaProject.Entities;
 using CinemaProject.Mapping;
 using CinemaProject.Repositories.Implementations;
 using CinemaProject.Repositories.Interfaces;
@@ -9,6 +10,9 @@ using CinemaProject.Service.Interfaces;
 using CinemaProject.Services.Implementations;
 using CinemaProject.Services.Interfaces;
 using Microsoft.EntityFrameworkCore;
+using Repository.Implementations;
+using Repository.Interfaces;
+using Service.Implementations;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -38,6 +42,9 @@ builder.Services.AddScoped<IShowTimeService, ShowTimeService>();
 
 builder.Services.AddScoped<ITicketRepository, TicketRepository>();
 builder.Services.AddScoped<ITicketService, TicketService>();
+
+builder.Services.AddScoped<ISeatRepository, SeatRepository>();
+builder.Services.AddScoped<ISeatService, SeatService>();
 
 var app = builder.Build();
 
