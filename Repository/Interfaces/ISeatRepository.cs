@@ -6,6 +6,7 @@ namespace CinemaProject.Repository.Interfaces
     {
         Task<IEnumerable<Seat>> GetAllAsync();
         Task<Seat?> GetByIdAsync(int id);
+        Task<Seat?> GetByIdWithDetailsAsync(int id);
         Task AddAsync(Seat seat);
         void Delete(Seat seat);
         Task SaveChangesAsync();

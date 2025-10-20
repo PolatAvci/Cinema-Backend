@@ -7,13 +7,13 @@ namespace CinemaProject.Entities
         [Key]
         public required int Id { get; set; }
         
-        public required decimal Price { get; set; }
+        public decimal? Price { get; set; }
 
         public DateTime? PurchaseDate { get; set; }
 
         public bool IsBooked { get; set; } = false;
 
-        public int UserId { get; set; }               // Foreign Key
+        public int? UserId { get; set; }               // Foreign Key
         public User User { get; set; } = null!;    // Navigation Property
 
         public int SeatId { get; set; }               // Foreign Key

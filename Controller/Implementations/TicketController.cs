@@ -15,8 +15,15 @@ namespace CinemaProject.Controller.Implementations
             _ticketService = ticketService;
         }
 
+        [HttpPatch("{id}/buy")]
+        public Task<ResponseTicket?> BuyTicket(int id, [FromBody] BuyTicketModel buyTicketModel)
+        {
+            var ticket = _ticketService.BuyTicketAsync(id, buyTicketModel);
+            return ticket;
+        }
+
         [HttpPost]
-        public async Task<ResponseTicket?> CreateTicket(CreateTicketModel ticketModel)
+        public async Task<ResponseTicket?> CreateTicket([FromBody] CreateTicketModel ticketModel)
         {
             var ticket = await _ticketService.CreateTicketAsync(ticketModel);
             return ticket;

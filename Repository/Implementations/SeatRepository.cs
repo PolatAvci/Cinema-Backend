@@ -41,6 +41,15 @@ namespace Repository.Implementations
             return seat;
         }
 
+        public Task<Seat?> GetByIdWithDetailsAsync(int id)
+        {
+            var seat = _context.Seats
+                                .Include(s => s.Theater)
+                                    .ThenInclude(t => t.Cinema)
+                                .FirstOrDefaultAsync(s => s.Id == id);
+            return seat;
+        }
+
         public async Task SaveChangesAsync()
         {
             await _context.SaveChangesAsync();

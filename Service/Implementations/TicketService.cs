@@ -10,16 +10,26 @@ namespace CinemaProject.Service.Implementations
         private IMapper _mapper;
         private readonly ITicketRepository _ticketRepository;
 
-        public TicketService(IMapper mapper, ITicketRepository ticketRepository)
+        private readonly ISeatRepository _seatRepository;
+
+        public TicketService(IMapper mapper, ITicketRepository ticketRepository, ISeatRepository seatRepository)
         {
             _mapper = mapper;
             _ticketRepository = ticketRepository;
+            _seatRepository = seatRepository;
         }
 
         public async Task<ResponseTicket> CreateTicketAsync(CreateTicketModel ticket)
         {
             var newTicket = _mapper.Map<Ticket>(ticket);
-            newTicket.PurchaseDate = null;
+            
+            var seat = await _seatRepository.GetByIdWithDetailsAsync(ticket.SeatId);
+            if (seat == null)
+                throw new Exception("Seat not found.");
+
+            var cinemaId = seat.Theater.CinemaId;
+            
+            newTicket.CinemaId = cinemaId;
             
             await _ticketRepository.AddAsync(newTicket);
             await _ticketRepository.SaveChangesAsync();
@@ -66,6 +76,31 @@ namespace CinemaProject.Service.Implementations
             await _ticketRepository.SaveChangesAsync();
 
             return _mapper.Map<ResponseTicket>(oldTicket);
+        }
+
+        public async Task<ResponseTicket?> BuyTicketAsync(int id, BuyTicketModel buyTicketModel)
+        {
+            var ticket = await _ticketRepository.GetByIdAsync(id);
+
+            if (ticket == null)
+                throw new Exception("Ticket not found.");
+
+            if (ticket.IsBooked)
+                throw new Exception("Ticket is already purchased.");
+            
+            // TODO: Price user'ın öğrenci olup olmamasına göre ayarlanabilir (showTime'da öğrenci ve normal fiyat var)
+            ticket.UserId = buyTicketModel.UserId;
+            ticket.PurchaseDate = DateTime.UtcNow;
+            ticket.IsBooked = true;
+            ticket.Price = buyTicketModel.Price;
+
+            await _ticketRepository.SaveChangesAsync();
+
+            var fullTicket = await _ticketRepository.GetByIdAsync(ticket.Id); // User'ı da dahil et
+
+            var responseTicket = _mapper.Map<ResponseTicket>(fullTicket);
+
+            return responseTicket;
         }
     }
 }

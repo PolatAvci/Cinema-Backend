@@ -7,5 +7,6 @@ namespace CinemaProject.Service.Interfaces
         Task<ResponseTicket> CreateTicketAsync(CreateTicketModel ticket);
         Task<ResponseTicket?> UpdateTicketAsync(int id, UpdateTicketModel ticket);
         Task<bool> DeleteTicketAsync(int id);
+        Task<ResponseTicket?> BuyTicketAsync(int id, BuyTicketModel buyTicketModel);
     }
 }
