@@ -14,6 +14,6 @@ namespace CinemaProject.Service.Interfaces
 
         public Task<ResponseTicket?> UpdateTicket(int id, UpdateTicketModel ticketModel);
 
-        public Task<ResponseTicket?> BuyTicket(int id, BuyTicketModel buyTicketModel);
+        public Task<ResponseTicket?> BuyTicket(int id);
     }
 }

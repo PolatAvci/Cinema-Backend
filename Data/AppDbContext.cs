@@ -130,6 +130,10 @@ namespace CinemaProject.Data
                 .HasForeignKey(t => t.UserId)
                 .OnDelete(DeleteBehavior.Cascade);
 
+            modelBuilder.Entity<User>()
+                .Property(u => u.Role)
+                .HasConversion<string>();
+
             base.OnModelCreating(modelBuilder);
         }
     }

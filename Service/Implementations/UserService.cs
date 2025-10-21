@@ -2,6 +2,7 @@ using AutoMapper;
 using CinemaProject.Entities;
 using CinemaProject.Repositories.Interfaces;
 using CinemaProject.Services.Interfaces;
+using Microsoft.AspNetCore.Identity;
 
 namespace CinemaProject.Services.Implementations
 {
@@ -9,16 +10,22 @@ namespace CinemaProject.Services.Implementations
     {
         IMapper _mapper;
         IUserRepository _userRepository;
+        private readonly PasswordHasher<User> _passwordHasher;
 
         public UserService(IMapper mapper, IUserRepository userRepository)
         {
             _mapper = mapper;
             _userRepository = userRepository;
+            _passwordHasher = new PasswordHasher<User>();
         }
 
         public async Task<ResponseUser> CreateUserAsync(CreateUserModel user)
         {
+            // TODO: Token veri tabanına eklenebilir
             var newUser = _mapper.Map<User>(user);
+
+            newUser.Password = _passwordHasher.HashPassword(newUser, user.Password);
+
             await _userRepository.AddAsync(newUser);
             await _userRepository.SaveChangesAsync();
             var responseUser = _mapper.Map<ResponseUser>(newUser);

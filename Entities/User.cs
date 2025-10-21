@@ -11,6 +11,8 @@ namespace CinemaProject.Entities
 
         public required string Email { get; set; }
 
+        public required Role Role { get; set; } = Role.User;
+
         public required string Password { get; set; }
 
         public required DateTime RegistrationDate { get; set; } = DateTime.Now;

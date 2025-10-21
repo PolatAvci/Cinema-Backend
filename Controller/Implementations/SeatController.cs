@@ -1,4 +1,5 @@
 using Controller.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Repository.Interfaces;
 
@@ -16,6 +17,7 @@ namespace Controller.Implementations
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public async Task<ResponseSeat?> CreateSeat(CreateSeatModel seatModel)
         {
             var seat = await _seatService.CreateSeatAsync(seatModel);
@@ -23,6 +25,7 @@ namespace Controller.Implementations
         }
 
         [HttpDelete("{id}")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteSeat(int id)
         {
             var deleted = await _seatService.DeleteSeatAsync(id);
@@ -50,6 +53,7 @@ namespace Controller.Implementations
         }
 
         [HttpPut("{id}")]
+        [Authorize(Roles = "Admin")]
         public Task<ResponseSeat?> UpdateSeat(int id, UpdateSeatModel seatModel)
         {
             var seat = _seatService.UpdateSeatAsync(id, seatModel);

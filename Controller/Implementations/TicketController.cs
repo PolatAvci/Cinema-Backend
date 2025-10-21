@@ -1,5 +1,5 @@
 using CinemaProject.Service.Interfaces;
-using Microsoft.AspNetCore.Http.HttpResults;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CinemaProject.Controller.Implementations
@@ -16,13 +16,30 @@ namespace CinemaProject.Controller.Implementations
         }
 
         [HttpPatch("{id}/buy")]
-        public Task<ResponseTicket?> BuyTicket(int id, [FromBody] BuyTicketModel buyTicketModel)
+        [Authorize]
+        public Task<ResponseTicket?> BuyTicket(int id)
         {
+            var userIdClaim = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier);
+            var userRoleClaim = User.FindFirst(System.Security.Claims.ClaimTypes.Role);
+            if (userIdClaim == null || userRoleClaim == null)
+                throw new UnauthorizedAccessException("User ID claim not found.");
+
+            int userId = int.Parse(userIdClaim.Value);
+            if (!Enum.TryParse<Role>(userRoleClaim.Value, out var userRole))
+                throw new UnauthorizedAccessException("Invalid role in token.");
+
+            var buyTicketModel = new BuyTicketModel
+            {
+                UserId = userId,
+                Role = userRole,
+            };
+
             var ticket = _ticketService.BuyTicketAsync(id, buyTicketModel);
             return ticket;
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public async Task<ResponseTicket?> CreateTicket([FromBody] CreateTicketModel ticketModel)
         {
             var ticket = await _ticketService.CreateTicketAsync(ticketModel);
@@ -30,6 +47,7 @@ namespace CinemaProject.Controller.Implementations
         }
 
         [HttpDelete("{id}")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteTicket(int id)
         {
             var deleted = await _ticketService.DeleteTicketAsync(id);
@@ -54,6 +72,7 @@ namespace CinemaProject.Controller.Implementations
         }
 
         [HttpPut("{id}")]
+        [Authorize(Roles = "Admin")]
         public async Task<ResponseTicket?> UpdateTicket(int id, [FromBody] UpdateTicketModel showTimeModel)
         {
             var updatedTicket = await _ticketService.UpdateTicketAsync(id, showTimeModel);

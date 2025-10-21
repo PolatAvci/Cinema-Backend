@@ -1,5 +1,6 @@
 using CinemaProject.Controller.Interfaces;
 using CinemaProject.Services.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CinemaProject.Controller.Implementations
@@ -22,6 +23,7 @@ namespace CinemaProject.Controller.Implementations
         }
 
         [HttpGet]
+        [Authorize(Roles = "Admin")]
         public async Task<IEnumerable<ResponseUser>> GetAllUser()
         {
             var users = await _userService.GetAllUsersAsync();
@@ -29,6 +31,7 @@ namespace CinemaProject.Controller.Implementations
         }
 
         [HttpGet("{id}")]
+        [Authorize(Roles = "Admin")]
         public async Task<ResponseUser?> GetUserById(int id)
         {
             var user = await _userService.GetUserByIdAsync(id);
@@ -36,6 +39,7 @@ namespace CinemaProject.Controller.Implementations
         }
 
         [HttpDelete("{id}")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteUser(int id)
         {
             bool deleted = await _userService.DeleteUserAsync(id);
@@ -47,6 +51,7 @@ namespace CinemaProject.Controller.Implementations
         }
 
         [HttpPut("{id}")]
+        [Authorize(Roles = "Admin")]
         public async Task<ResponseUser?> UpdateUser(int id, [FromBody] UpdateUserModel user)
         {
             return await _userService.UpdateUserAsync(id, user);

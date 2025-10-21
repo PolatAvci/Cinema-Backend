@@ -1,5 +1,6 @@
 using CinemaProject.Controller.Interfaces;
 using CinemaProject.Services.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CinemaProject.Controller.Implementations
@@ -16,6 +17,7 @@ namespace CinemaProject.Controller.Implementations
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public async Task<ResponseShowTime?> CreateShowTime([FromBody] CreateShowTimeModel showTimeModel)
         {
             var showTime = await _showTimeService.CreateShowTimeAsync(showTimeModel);
@@ -23,6 +25,7 @@ namespace CinemaProject.Controller.Implementations
         }
 
         [HttpDelete]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteShowTime(int id)
         {
             var deleted = await _showTimeService.DeleteShowTimeAsync(id);
@@ -48,6 +51,7 @@ namespace CinemaProject.Controller.Implementations
         }
 
         [HttpPut("{id}")]
+        [Authorize(Roles = "Admin")]
         public async Task<ResponseShowTime?> UpdateShowTime(int id, [FromBody] UpdateShowTimeModel showTimeModel)
         {
             var updatedShowTime = await _showTimeService.UpdateShowTimeAsync(id, showTimeModel);

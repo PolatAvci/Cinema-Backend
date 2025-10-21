@@ -1,6 +1,5 @@
 public class BuyTicketModel
 {
-    public required int UserId { get; set; }
-
-    public required decimal Price { get; set; }
+    public int UserId { get; set; }
+    public Role Role { get; set; } = Role.User;
 }
