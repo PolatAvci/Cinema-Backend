@@ -13,5 +13,8 @@ namespace CinemaProject.Controller.Interfaces
         public Task<IActionResult> DeleteUser(int id);
 
         public Task<ResponseUser?> UpdateUser(int id, UpdateUserModel user);
+
+        public Task<ResponseUser?> GetMyProfile();
+        public Task<ResponseUser?> UpdateMyProfile(UpdateUserModel user);
     }
 }

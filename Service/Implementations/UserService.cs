@@ -1,3 +1,4 @@
+using System.Security.Claims;
 using AutoMapper;
 using CinemaProject.Entities;
 using CinemaProject.Repositories.Interfaces;
@@ -46,7 +47,7 @@ namespace CinemaProject.Services.Implementations
             await _userRepository.SaveChangesAsync();
 
             return true;
-            
+
         }
 
         public async Task<IEnumerable<ResponseUser>> GetAllUsersAsync()
@@ -73,6 +74,21 @@ namespace CinemaProject.Services.Implementations
 
         }
 
+        public async Task<ResponseUser?> GetMyProfileAsync(ClaimsPrincipal user)
+        {
+
+            var userId = GetUserIdFromClaims(user);
+
+            var dbUser = await _userRepository.GetByIdAsync(userId);
+            if (dbUser == null)
+                throw new Exception("User not found.");
+
+            var response = _mapper.Map<ResponseUser>(dbUser);
+
+            return response;
+        }
+
+
         public async Task<ResponseUser?> UpdateUserAsync(int id, UpdateUserModel user)
         {
             var oldUser = await _userRepository.GetByIdAsync(id);
@@ -90,6 +106,25 @@ namespace CinemaProject.Services.Implementations
             var responseUser = _mapper.Map<ResponseUser>(oldUser);
 
             return responseUser;
+        }
+
+        public async Task<ResponseUser?> UpdateMyProfileAsync(ClaimsPrincipal user, UpdateUserModel userModel)
+        {
+            var id = GetUserIdFromClaims(user);
+            var updatedUser = await UpdateUserAsync(id, userModel);
+            return updatedUser;
+        }
+
+        private int GetUserIdFromClaims(ClaimsPrincipal user)
+        {
+            var userIdClaim = user.FindFirst(ClaimTypes.NameIdentifier);
+
+            if (userIdClaim == null)
+                throw new UnauthorizedAccessException("User ID not found in token.");
+
+            int userId = int.Parse(userIdClaim.Value);
+
+            return userId;
         }
     }
 }

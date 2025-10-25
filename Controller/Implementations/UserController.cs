@@ -38,6 +38,15 @@ namespace CinemaProject.Controller.Implementations
             return user;
         }
 
+        [HttpGet("my-profile")]
+        [Authorize]
+        public async Task<ResponseUser?> GetMyProfile()
+        {
+            var user = await _userService.GetMyProfileAsync(User);
+            return user;
+        }
+
+
         [HttpDelete("{id}")]
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteUser(int id)
@@ -55,6 +64,14 @@ namespace CinemaProject.Controller.Implementations
         public async Task<ResponseUser?> UpdateUser(int id, [FromBody] UpdateUserModel user)
         {
             return await _userService.UpdateUserAsync(id, user);
+        }
+
+        [HttpPut("my-profile")]
+        [Authorize]
+        public async Task<ResponseUser?> UpdateMyProfile(UpdateUserModel user)
+        {
+            var response = await _userService.UpdateMyProfileAsync(User, user);
+            return response;
         }
     }
 }
