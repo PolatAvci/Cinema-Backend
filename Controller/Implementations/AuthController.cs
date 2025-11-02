@@ -1,3 +1,4 @@
+using System.Threading.Tasks;
 using CinemaProject.Service.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
@@ -15,14 +16,21 @@ namespace CinemaProject.Controller.Implementations
         }
 
         [HttpPost("login")]
-        public ResponseLogin Login([FromBody] LoginModel credentials)
+        public async Task<ResponseLogin> Login([FromBody] LoginModel credentials)
         {
-            var responseLogin = _authService.LoginAsync(credentials).Result;
+            var responseLogin = await _authService.LoginAsync(credentials);
             if (responseLogin == null)
             {
                 throw new UnauthorizedAccessException("Invalid credentials");
             }
             return responseLogin;
+        }
+
+        [HttpPost("refresh")]
+        public async Task<ResponseRefresh> Refresh([FromBody] TokenRequest tokenRequest)
+        {
+            var response = await _authService.Refresh(tokenRequest);
+            return response;
         }
     }
 }

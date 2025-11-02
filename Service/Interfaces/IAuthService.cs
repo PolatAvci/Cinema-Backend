@@ -6,6 +6,10 @@ namespace CinemaProject.Service.Interfaces
     {
         string GenerateJwtToken(User user);
 
+        string GenerateRefreshToken();
+
+        Task<ResponseRefresh> Refresh(TokenRequest TokenRequest);
+
         Task<ResponseLogin?> LoginAsync(LoginModel credentials);
     }
 }
