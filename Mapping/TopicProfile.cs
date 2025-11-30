@@ -10,6 +10,7 @@ namespace CinemaProject.Mapping
             CreateMap<CreateTopicModel, Topic>();
             CreateMap<UpdateTopicModel, Topic>();
             CreateMap<Topic, ResponseTopic>();
+            CreateMap<Topic, ResponseTopicSummary>();
         }
     }
 }
