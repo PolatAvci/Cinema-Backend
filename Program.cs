@@ -1,7 +1,5 @@
 using System.Text;
 using CinemaProject.Data;
-using CinemaProject.Entities;
-using CinemaProject.Mapping;
 using CinemaProject.Repositories.Implementations;
 using CinemaProject.Repositories.Interfaces;
 using CinemaProject.Repository.Implementations;
@@ -102,6 +100,9 @@ builder.Services.AddScoped<ISeatRepository, SeatRepository>();
 builder.Services.AddScoped<ISeatService, SeatService>();
 
 builder.Services.AddScoped<IAuthService, AuthService>();
+
+builder.Services.AddScoped<ITopicRepository, TopicRepository>();
+builder.Services.AddScoped<ITopicService, TopicService>();
 
 var app = builder.Build();
 
