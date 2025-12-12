@@ -1,4 +1,4 @@
-// --- Dosya: Repository/Interfaces/IAddressRepository.cs ---
+
 using CinemaProject.Entities;
 using System.Collections.Generic;
 using System.Threading.Tasks;

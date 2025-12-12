@@ -1,4 +1,4 @@
-// --- Dosya: Repository/Implementations/AddressRepository.cs ---
+
 using CinemaProject.Data;
 using CinemaProject.Entities;
 using CinemaProject.Repository.Interfaces;
@@ -23,14 +23,14 @@ namespace CinemaProject.Repository.Implementations
 
         public Task<IEnumerable<Address>> GetAllAsync()
         {
-            // ActorRepository örneğine uygun olarak Task.FromResult kullanıldı.
+            
             var addresses = _context.Addresses.AsEnumerable();
             return Task.FromResult(addresses);
         }
 
         public Task<Address?> GetByIdAsync(int id)
         {
-            // ActorRepository örneğine uygun olarak FirstOrDefault kullanıldı.
+            
             var address = _context.Addresses.FirstOrDefault(a => a.Id == id);
             return Task.FromResult(address);
         }

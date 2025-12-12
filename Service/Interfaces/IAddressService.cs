@@ -1,7 +1,7 @@
-// --- Dosya: Service/Interfaces/IAddressService.cs ---
 using CinemaProject.Models.AddressModels;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+
 
 namespace CinemaProject.Service.Interfaces
 {

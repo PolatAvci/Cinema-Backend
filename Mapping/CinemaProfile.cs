@@ -1,13 +1,19 @@
 using AutoMapper;
 using CinemaProject.Entities;
+using CinemaProject.Models.CinemaModels;
 
-namespace CinemaProject.Mapping
+public class CinemaProfile : Profile
 {
-    public class CinemaProfile : Profile
+    public CinemaProfile()
     {
-        public CinemaProfile()
-        {
-           CreateMap<Cinema, ResponseCinemaSummary>();
-        }
+        // Summary
+        CreateMap<Cinema, ResponseCinemaSummary>();
+
+        // Detail
+        CreateMap<Cinema, ResponseCinema>();
+
+        // Update Cinema
+        CreateMap<UpdateCinemaModel, Cinema>()
+            .ForMember(dest => dest.Id, opt => opt.Ignore()); // Id değiştirilmez
     }
 }
