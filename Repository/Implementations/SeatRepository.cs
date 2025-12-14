@@ -20,6 +20,11 @@ namespace Repository.Implementations
             await _context.Seats.AddAsync(seat);
         }
 
+        public async Task AddRangeAsync(List<Seat> seats)
+        {
+            await _context.AddRangeAsync(seats);
+        }
+
         public void Delete(Seat seat)
         {
             _context.Seats.Remove(seat);

@@ -10,5 +10,6 @@ namespace CinemaProject.Repository.Interfaces
         Task AddAsync(Seat seat);
         void Delete(Seat seat);
         Task SaveChangesAsync();
+        Task AddRangeAsync(List<Seat> seats);
     }
 }

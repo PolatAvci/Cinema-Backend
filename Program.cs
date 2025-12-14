@@ -113,6 +113,15 @@ builder.Services.AddScoped<IActorService, ActorService>();
 builder.Services.AddScoped<IDirectorRepository, DirectorRepository>();
 builder.Services.AddScoped<IDirectorService, DirectorService>();
 
+builder.Services.AddScoped<IAddressRepository, AddressRepository>();
+builder.Services.AddScoped<IAddressService, AddressService>();
+
+builder.Services.AddScoped<ICinemaRepository, CinemaRepository>();
+builder.Services.AddScoped<ICinemaService, CinemaService>();
+
+builder.Services.AddScoped<ITheaterRepository, TheaterRepository>();
+builder.Services.AddScoped<ITheaterService, TheaterService>();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

@@ -5,7 +5,7 @@ namespace CinemaProject.Entities
     public class Seat
     {
         [Key]
-        public required int Id { get; set; }
+        public int Id { get; set; }
 
         public required string SeatNumber { get; set; }
 
